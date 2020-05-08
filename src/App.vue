@@ -1,7 +1,7 @@
 <template>
     <q-layout view="hHh Lpr lFf">
-        <q-header elevated class="page-header">
-            <q-toolbar class="bg-white page-toolbar">
+        <q-header :elevated="$route.name!=='Home'" class="bg-white page-header">
+            <q-toolbar class="bg-white page-toolbar q-py-md">
                 <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen"
                        aria-label="Menu" icon="menu"/>
                 <q-toolbar-title>
@@ -11,18 +11,11 @@
                 <div>{{subtitle}}</div>
             </q-toolbar>
             <!--搜索框-->
-            <q-toolbar  inset v-if="$route.name==='Home'" class="no-padding shadow-1  bg-white items-start justify-evenly">
-                <q-input dark borderless v-model="text" class="col-xs-10 col-sm-10 col-md-8 col-lg-6 col-xl-6" input-class="text-left text-black ">
-                    <template v-slot:prepend>
-                        <q-icon name="place" class="text-black" v-ripple />
-                    </template>
-                    <template v-slot:append>
+            <transition name="search">
+                <Search v-show="$route.name==='Home'"></Search>
+            </transition>
 
-                        <q-icon v-if="text!==''" name="clear" class="text-black cursor-pointer" @click="text = ''"/>
-                        <q-icon name="search" class="text-black"/>
-                    </template>
-                </q-input>
-            </q-toolbar>
+
         </q-header>
 
         <q-drawer v-model="leftDrawerOpen" overlay
@@ -31,15 +24,15 @@
                 <q-item-label header>菜单</q-item-label>
                 <q-item clickable v-ripple exact :to="{name:'Home'}">
                     <q-item-section avatar>
-                        <q-icon name="home"/>
+                        <q-icon name="search"/>
                     </q-item-section>
-                    <q-item-section>首页</q-item-section>
+                    <q-item-section>导航</q-item-section>
                 </q-item>
-                <q-item clickable v-ripple exact :to="{name:'DentalShoppingCart'}">
+                <q-item clickable v-ripple exact :to="{name:'About'}">
                     <q-item-section avatar>
-                        <q-icon name="shopping_cart"/>
+                        <q-icon name="perm_media"/>
                     </q-item-section>
-                    <q-item-section>牙科购物车</q-item-section>
+                    <q-item-section>图片</q-item-section>
                 </q-item>
 
             </q-list>
@@ -55,12 +48,14 @@
 <script lang="ts">
     import HelloWorld from './components/HelloWorld.vue'
     import {Component, Vue, Watch} from "vue-property-decorator";
+    import Search from "@/components/Search.vue";
 
     const config = require("../package.json");
 
     @Component({
         name: 'App',
         components: {
+            Search,
             HelloWorld
         },
     })
@@ -68,7 +63,7 @@
         title = "Opage";
         subtitle = `by litcc V${config.version}`;
         leftDrawerOpen = false;
-        text = "";
+
 
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         created() {
@@ -85,17 +80,30 @@
 
 <style lang="stylus">
 
-    .page-header{
+    .page-header {
         background: white
     }
 
-    .page-toolbar{
+    .page-toolbar {
         color black
     }
-    .page-toolbar-inset{
+
+    .page-toolbar-inset {
         color black
     }
 
 
+    .search-enter-active {
+        transition: opacity .5s;
+    }
+
+    .search-leave-active {
+        transition: opacity .0s;
+    }
+
+    .search-enter, .search-leave-to /* .fade-leave-active below version 2.1.8 */
+    {
+        opacity: 0;
+    }
 
 </style>
