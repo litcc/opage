@@ -3,7 +3,21 @@
         hello
     </q-page>
 </template>
+<script lang="ts">
 
+    import {Component} from "vue-property-decorator";
+    import VueBase from "@/VueBase";
+
+    @Component({
+        name: 'About',
+    })
+    export default class About extends VueBase{
+        beforeCreate(){
+
+        }
+
+    }
+</script>
 <style scoped lang="stylus">
     .about{
         padding 1rem

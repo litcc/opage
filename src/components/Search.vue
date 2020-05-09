@@ -51,14 +51,15 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
+    import {Component} from "vue-property-decorator";
+    import VueBase from "@/VueBase";
 
 
     @Component({
         name: 'Search',
         components: {},
     })
-    export default class SearchComponents extends Vue {
+    export default class SearchComponents extends VueBase {
         searchText = ""; // 搜索文本
 
         /**

@@ -18,7 +18,7 @@
 
         </q-header>
 
-        <q-drawer v-model="leftDrawerOpen" overlay
+        <q-drawer v-model="leftDrawerOpen"
                   bordered content-class="bg-grey-1">
             <q-list bordered padding class="text-grey-8">
                 <q-item-label header>菜单</q-item-label>
@@ -47,10 +47,9 @@
 
 <script lang="ts">
     import HelloWorld from './components/HelloWorld.vue'
-    import {Component, Vue, Watch} from "vue-property-decorator";
+    import {Component, Watch} from "vue-property-decorator";
     import Search from "@/components/Search.vue";
-
-    const config = require("../package.json");
+    import VueBase from "@/VueBase";
 
     @Component({
         name: 'App',
@@ -59,21 +58,35 @@
             HelloWorld
         },
     })
-    export default class App extends Vue {
+    export default class App extends VueBase {
         title = "Opage";
-        subtitle = `by litcc V${config.version}`;
+        subtitle = `by litcc V${this.$store.getters.getVersion}`;
         leftDrawerOpen = false;
 
 
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
         created() {
 
+
+
+            // // eslint-disable-next-line no-unexpected-multiline
+            // const a = async () => {
+            //     const oneTime = new Date().getTime()
+            //     const ecc = require('eosjs-ecc')
+            //     await ecc.initialize()
+            //     const twoTime = new Date().getTime()
+            //     console.log(`ecc ready ,Time out ${twoTime - oneTime}`)
+            //
+            // }
+            // a();
+            // console.log("Hellp")
+
+
         }
 
-        @Watch("$route", {deep: true})
-        routerHook(newVal: any, oldVal: any) {
-
-        }
+        // @Watch("$route", {deep: true})
+        // routerHook(newVal: any, oldVal: any) {
+        //
+        // }
 
     }
 </script>

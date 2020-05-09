@@ -7,5 +7,8 @@ module.exports = {
   },
   transpileDependencies: [
     'quasar'
-  ]
+  ],
+  configureWebpack: {
+    devtool: "source-map"
+  }
 }
